@@ -1,0 +1,16 @@
+#!/bin/bash
+
+TERMINFO="$(athdir /mit/barnowl share)"/terminfo
+export TERMINFO
+eval $(env SHELL=/bin/bash $(athdir /mit/barnowl bin)/barnowl-perl-config)
+
+if [ -n "$ATHENA_SESSION_TMPDIR" ]; then
+    PAR_GLOBAL_TMPDIR=$ATHENA_SESSION_TMPDIR
+    export PAR_GLOBAL_TMPDIR
+fi
+if [ -z "$BARNOWL_REAL" ]; then
+    BARNOWL_REAL=barnowl.real
+fi
+
+
+exec "$(athdir /mit/barnowl bin)"/$BARNOWL_REAL "$@"

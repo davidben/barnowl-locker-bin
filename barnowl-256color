@@ -1,0 +1,17 @@
+#!/bin/sh
+case "$TERM" in
+screen-bce)
+    TERM=screen-256color-bce
+    ;;
+screen)
+    TERM=screen-256color
+    ;;
+xterm)
+    TERM=xterm-256color
+    ;;
+*)
+    ;;
+esac
+
+export TERM
+exec /afs/sipb.mit.edu/project/barnowl/arch/@sys/bin/barnowl "$@"

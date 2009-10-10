@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "The unicode branch of BarnOwl has been merged with trunk." >&2
+echo "Please use 'barnowl' instead of barnowl-unicode." >&2
+
+#LD_LIBRARY_PATH=/afs/sipb.mit.edu/project/barnowl/arch/$ATHENA_SYS/lib/:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH
+#BARNOWL_REAL=barnowl-unicode.real
+#export BARNOWL_REAL
+#exec /afs/sipb.mit.edu/project/barnowl/arch/common/bin/barnowl "$@"

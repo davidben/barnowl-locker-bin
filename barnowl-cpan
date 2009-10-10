@@ -1,0 +1,6 @@
+#!/bin/bash
+here="`dirname "$0"`"
+eval `$here/barnowl-perl-config`
+# export PERL_MM_USE_DEFAULT=1
+
+exec cpan "$@"

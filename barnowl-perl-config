@@ -1,0 +1,5 @@
+#!/bin/sh
+ATHENA_SYS=${ATHENA_SYS-"`machtype -S`"}
+export ATHENA_SYS
+perldir="`athdir /mit/barnowl perl`"
+perl -I "$perldir/lib/perl5" -Mlocal::lib="$perldir/"
