@@ -12,5 +12,7 @@ if [ -z "$BARNOWL_REAL" ]; then
     BARNOWL_REAL=barnowl.real
 fi
 
-
-exec "$(athdir /mit/barnowl bin)"/$BARNOWL_REAL "$@"
+case $BARNOWL_REAL in
+    /*) exec "$BARNOWL_REAL" "$@" ;;
+    *)  exec "$(athdir /mit/barnowl bin)/$BARNOWL_REAL" "$@" ;;
+esac
