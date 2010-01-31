@@ -1,3 +1,4 @@
 #!/bin/sh
-export BARNOWL_REAL=barnowl.real-beta
+BARNOWL_REAL=barnowl.real-beta
+export BARNOWL_REAL
 exec `dirname "$0"`/barnowl "$@"
