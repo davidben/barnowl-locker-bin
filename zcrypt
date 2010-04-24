@@ -1,0 +1,4 @@
+#!/bin/sh
+BARNOWL_REAL=zcrypt.real
+export BARNOWL_REAL
+exec `dirname "$0"`/barnowl "$@"
