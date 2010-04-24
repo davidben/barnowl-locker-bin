@@ -17,4 +17,14 @@ case $BARNOWL_REAL in
     *) BARNOWL_REAL_PATH="$(athdir /mit/barnowl bin)/$BARNOWL_REAL" ;;
 esac
 
+# Detect zephyr name if necessary
+if [ ! -x "$BARNOWL_REAL_PATH" ]; then
+    if /sbin/ldconfig -p | grep -qF "libzephyr.so.4"; then
+        ZEPHYR_SONAME=zephyr4
+    else
+        ZEPHYR_SONAME=zephyr3
+    fi
+    BARNOWL_REAL_PATH="$BARNOWL_REAL_PATH.$ZEPHYR_SONAME"
+fi
+
 exec "$BARNOWL_REAL_PATH" "$@"
