@@ -19,7 +19,7 @@ esac
 
 # Detect zephyr name if necessary
 if [ ! -x "$BARNOWL_REAL_PATH" ]; then
-    if /sbin/ldconfig -p | grep -qF "libzephyr.so.4"; then
+    if test -x /sbin/ldconfig && /sbin/ldconfig -p | grep -qF "libzephyr.so.4"; then
         ZEPHYR_SONAME=zephyr4
     else
         ZEPHYR_SONAME=zephyr3
