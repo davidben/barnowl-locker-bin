@@ -13,6 +13,8 @@ if [ -z "$BARNOWL_REAL" ]; then
 fi
 
 case $BARNOWL_REAL in
-    /*) exec "$BARNOWL_REAL" "$@" ;;
-    *)  exec "$(athdir /mit/barnowl bin)/$BARNOWL_REAL" "$@" ;;
+    /*) BARNOWL_REAL_PATH="$BARNOWL_REAL" ;;
+    *) BARNOWL_REAL_PATH="$(athdir /mit/barnowl bin)/$BARNOWL_REAL" ;;
 esac
+
+exec "$BARNOWL_REAL_PATH" "$@"
