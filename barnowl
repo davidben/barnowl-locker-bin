@@ -19,12 +19,20 @@ esac
 
 # Detect zephyr name if necessary
 if [ ! -x "$BARNOWL_REAL_PATH" ]; then
-    if test -x /sbin/ldconfig && /sbin/ldconfig -p | grep -qF "libzephyr.so.4"; then
-        ZEPHYR_SONAME=zephyr4
+    SUFFIX=
+
+    # Both Debian Lenny and Ubuntu Karmic use the _deb50
+    # sysname, but they have different zephyr versions (soname
+    # 3 and 4, respectively). So for that sysname, we the
+    # build script includes the zephyr soname into the binary
+    # name, and we pick the right one.
+    if /sbin/ldconfig -p | grep -qF "libzephyr.so.4"; then
+        SUFFIX=.zephyr4
     else
-        ZEPHYR_SONAME=zephyr3
+        SUFFIX=.zephyr3
     fi
-    BARNOWL_REAL_PATH="$BARNOWL_REAL_PATH.$ZEPHYR_SONAME"
+
+    BARNOWL_REAL_PATH="$BARNOWL_REAL_PATH$SUFFIX"
 fi
 
 exec "$BARNOWL_REAL_PATH" "$@"
