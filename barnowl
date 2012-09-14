@@ -4,12 +4,27 @@ TERMINFO="$(athdir /mit/barnowl share)"/terminfo
 export TERMINFO
 eval $(env SHELL=/bin/bash $(athdir /mit/barnowl bin)/barnowl-perl-config)
 
+# Does this do anything? At least newer PARs use PAR_TMPDIR and don't read
+# PAR_GLOBAL_TMPDIR.
 if [ -n "$ATHENA_SESSION_TMPDIR" ]; then
     PAR_GLOBAL_TMPDIR=$ATHENA_SESSION_TMPDIR
     export PAR_GLOBAL_TMPDIR
 fi
 if [ -z "$BARNOWL_REAL" ]; then
     BARNOWL_REAL=barnowl.real
+fi
+
+# PAR 1.003 made the requirements on /tmp/par-$USER stricter without changing
+# the name. Hack around this by setting PAR_TMPDIR (despite what the
+# documentation says, PAR_GLOBAL_TMPDIR doesn't seem used anywhere) if
+# /tmp/par-$USER exists and has bad permissions. This is so we can switch from
+# old to new PAR without breaking dialups that haven't rebooted.
+if ! perl -MPAR -e '1' 2>/dev/null; then
+    PAR_TMPDIR=/tmp/newpar-$USER
+    if [ ! -d "$PAR_TMPDIR" ]; then
+        mkdir "$PAR_TMPDIR"
+    fi
+    export PAR_TMPDIR
 fi
 
 case $BARNOWL_REAL in
